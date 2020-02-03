@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="RA Test Cases">
+	<test name="RA">
+		<classes>
+			<class name="com.npw.testscripts.ra.TC_01_CreateRAApplication"></class>
+			<class name="com.npw.testscripts.ra.TC_05_VerifyNPWLinks"></class>
+		</classes>
+	</test>
+</suite> 
