@@ -129,7 +129,7 @@ public class BaseTest extends TestListenerAdapter
 				driver = Browser.openBrowser(sBrowser, sTestSiteURL, sIEDriverPath);
 			else if(sBrowser.equalsIgnoreCase("EDGE"))
 				driver = Browser.openBrowser(sBrowser, sTestSiteURL, sEdgeDriverPath);
-			else if(sBrowser.equalsIgnoreCase("chrome") || sBrowser.equalsIgnoreCase("cr"))
+			else if(sBrowser.equalsIgnoreCase("chrome") || sBrowser.equalsIgnoreCase("cr") || sBrowser.equalsIgnoreCase("chromeHeadless"))
 				driver = Browser.openBrowser(sBrowser, sTestSiteURL, sChromeDriverPath);
 			else if(sBrowser.equalsIgnoreCase("chrome-x"))
 				driver = Browser.openChromeBrowserWithXtension(sTestSiteURL, sChromeDriverPath, sChromeExtension);
@@ -145,7 +145,7 @@ public class BaseTest extends TestListenerAdapter
 			
 			//set the default wait and timeout values 
 			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-			driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);						
+			driver.manage().timeouts().pageLoadTimeout(200, TimeUnit.SECONDS);						
 		} 
 		catch (Exception e) 
 		{

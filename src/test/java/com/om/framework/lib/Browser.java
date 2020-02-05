@@ -85,6 +85,10 @@ public class Browser extends BaseTest
 			logger.info("The application has been invoked successfully in Google Chrome with URL:"+sURL);
 			return openChromeBrowser(sURL, sPathOfDriver);
 		}
+		else if(sBrowserName.equalsIgnoreCase("chromeHeadless")){
+			logger.info("The application has been invoked successfully in GoogleHeadless Chrome with URL:"+sURL);
+			return openChromeHeadlessBrowser(sURL, sPathOfDriver);
+		}
 		else if((sBrowserName.equalsIgnoreCase("ff") || sBrowserName.equalsIgnoreCase("firefox")) && sPathOfDriver.length()>0)
 		{
 			logger.info("The application has been invoked successfully in Firefox with URL:"+sURL);
@@ -162,6 +166,42 @@ public class Browser extends BaseTest
 		return wDriver;
 	}
 
+	
+	/**
+	 * Opens a new chrome headless browser instance to given URL.
+	 * Usage: driver = openChromeHeadlessBrowser(url,pathofdriver)
+	 * 
+	 * @param sURL	web URL to load
+	 * @param sPathOfDriver	path under project workspace where the browser .exe is located
+	 * @return WebDriver
+	 * @author akosaraju
+	 */
+	private static WebDriver openChromeHeadlessBrowser(String sURL, String sPathOfDriver )
+	{
+
+		try{
+			//System.setProperty("webdriver.chrome.driver",sPathOfDriver);
+			WebDriverManager.chromedriver().setup();
+			ChromeOptions options= new ChromeOptions();
+			options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors"); 
+			
+			//options.addArguments(arguments);
+			
+			wDriver = new ChromeDriver(options);	
+			logger.info("Chrome headless browser is opened successfully");
+			System.out.println("Chromeheadless browser is opened successfully");
+			wDriver.get(sURL);
+			wDriver.manage().window().maximize();	
+		}
+		catch(Exception e)
+		{
+			Messages.errorMsg = e.getMessage();
+			logger.warn(Messages.errorMsg);
+		}
+
+		return wDriver;
+	}
+	
 	/**
 	 * Opens a new chrome browser and extension instance to given URL.
 	 * Usage: driver = openChromeBrowser(sURL, sDriverPath, sExtensionPath)
