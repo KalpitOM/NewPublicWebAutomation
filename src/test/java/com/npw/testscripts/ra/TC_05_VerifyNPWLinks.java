@@ -147,12 +147,6 @@ public class TC_05_VerifyNPWLinks extends BaseTest
 
 		}
 
-
-
 	}
-
-
-
-
 
 }
