@@ -1,6 +1,8 @@
 package com.om.framework.lib;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -12,6 +14,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.om.framework.basetest.BaseTest;
 
@@ -85,13 +88,17 @@ public class Browser extends BaseTest
 			logger.info("The application has been invoked successfully in Google Chrome with URL:"+sURL);
 			return openChromeBrowser(sURL, sPathOfDriver);
 		}
+		else if(sBrowserName.equalsIgnoreCase("chromeHeadless")){
+			logger.info("The application has been invoked successfully in GoogleHeadless Chrome with URL:"+sURL);
+			return openChromeHeadlessBrowser(sURL, sPathOfDriver);
+		}
 		else if((sBrowserName.equalsIgnoreCase("ff") || sBrowserName.equalsIgnoreCase("firefox")) && sPathOfDriver.length()>0)
 		{
 			logger.info("The application has been invoked successfully in Firefox with URL:"+sURL);
 			return openFirefoxBrowser(sURL, sPathOfDriver);
 		}
 		else if(sBrowserName.equalsIgnoreCase("ff") || sBrowserName.equalsIgnoreCase("firefox")){
-			
+
 			logger.info("The application has been invoked successfully in Firefox with URL:"+sURL);
 			return openBrowser(sURL);
 		}
@@ -162,6 +169,83 @@ public class Browser extends BaseTest
 		return wDriver;
 	}
 
+
+	/**
+	 * Opens a new chrome headless browser instance to given URL.
+	 * Usage: driver = openChromeHeadlessBrowser(url,pathofdriver)
+	 * 
+	 * @param sURL	web URL to load
+	 * @param sPathOfDriver	path under project workspace where the browser .exe is located
+	 * @return WebDriver
+	 * @author akosaraju
+	 */
+	private static WebDriver openChromeHeadlessBrowser(String sURL, String sPathOfDriver )
+	{
+
+		try{
+			//System.setProperty("webdriver.chrome.driver",sPathOfDriver);
+			WebDriverManager.chromedriver().setup();
+			ChromeOptions options= new ChromeOptions();
+			options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors"); 
+
+			//options.addArguments(arguments);
+
+			wDriver = new ChromeDriver(options);	
+			logger.info("Chrome headless browser is opened successfully");
+			System.out.println("Chromeheadless browser is opened successfully");
+			wDriver.get(sURL);
+			wDriver.manage().window().maximize();	
+		}
+		catch(Exception e)
+		{
+			Messages.errorMsg = e.getMessage();
+			logger.warn(Messages.errorMsg);
+		}
+
+		return wDriver;
+	}
+
+	/**
+	 * Opens a new chrome headless browser instance to given URL.
+	 * Usage: driver = openChromeHeadlessBrowser(url,pathofdriver)
+	 * 
+	 * @param sURL	web URL to load
+	 * @param sPathOfDriver	path under project workspace where the browser .exe is located
+	 * @return WebDriver
+	 * @author akosaraju
+	 * @throws MalformedURLException 
+	 */
+	public static WebDriver openBrowserStack(String sURL, String UserName, String passkey,String OS, String OSVersion, String BrowserName, String sBrowserVersion,String sSeleniumVersion) 
+	{
+		String URL = "https://" + UserName + ":" + passkey + "@hub-cloud.browserstack.com/wd/hub";
+	//	WebDriver wDriver;
+		try {
+
+			DesiredCapabilities caps = new DesiredCapabilities();
+			caps.setCapability("os", OS);
+			caps.setCapability("os_version", OSVersion);
+			caps.setCapability("browser", BrowserName);
+			caps.setCapability("browser_version", sBrowserVersion);
+			caps.setCapability("browserstack.local", "false");
+			caps.setCapability("browserstack.selenium_version", sSeleniumVersion);
+
+			wDriver = new RemoteWebDriver(new URL(URL), caps);
+			System.out.println("Browserstack browser is opened successfully");
+			logger.info("Browserstack browser is opened successfully");
+			wDriver.get(sURL);
+			wDriver.manage().window().maximize();	
+			//return wDriver;
+		}
+		catch(Exception e)
+		{
+			Messages.errorMsg = e.getMessage();
+			logger.warn(Messages.errorMsg);
+		}
+
+		return wDriver;
+	}
+	
+
 	/**
 	 * Opens a new chrome browser and extension instance to given URL.
 	 * Usage: driver = openChromeBrowser(sURL, sDriverPath, sExtensionPath)
@@ -183,7 +267,7 @@ public class Browser extends BaseTest
 			DesiredCapabilities capabilities = new DesiredCapabilities();
 			capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 			wDriver = new ChromeDriver(capabilities);
-			
+
 			logger.info("Chrome browser with extension is opened successfully");
 			System.out.println("Chrome browser with extension is opened successfully");
 
@@ -196,10 +280,10 @@ public class Browser extends BaseTest
 			Messages.errorMsg = e.toString();
 			return null;
 		}
-		
+
 		return wDriver;
 	}
-	
+
 	/**
 	 * Opens a new IE browser instance to given URL.
 	 * Usage: driver = openIEBrowser(sURL, pathofdriver)
@@ -223,7 +307,7 @@ public class Browser extends BaseTest
 			wDriver.manage().deleteAllCookies();
 			wDriver.get(sURL);
 			wDriver.manage().window().maximize();
-			
+
 			//handle any test site security certificate errors on IE
 			try {
 				driver = wDriver;
@@ -245,7 +329,7 @@ public class Browser extends BaseTest
 		}
 		return wDriver;
 	}
-	
+
 	/**
 	 * Opens a new Edge browser instance to given URL.
 	 * Usage: driver = openEdgeBrowser(sURL, pathofdriver)
@@ -267,7 +351,7 @@ public class Browser extends BaseTest
 			wDriver.manage().deleteAllCookies();
 			wDriver.get(sURL);
 			wDriver.manage().window().maximize();
-			
+
 			//handle any test site security certificate errors on Edge
 			try {
 				driver = wDriver;
@@ -423,7 +507,7 @@ public class Browser extends BaseTest
 		wDriver.manage().deleteCookieNamed(sCookieName);
 		logger.info("Successfully deleted the browser cookie"+sCookieName);
 	}
-	
+
 	/**
 	 * Returns the URL of the current browser page.
 	 * 

@@ -45,7 +45,7 @@ public class TC_05_VerifyNPWLinks extends BaseTest
 	public static void verifyLinks() throws InterruptedException, IOException, HeadlessException, AWTException
 	{
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.NANOSECONDS);
-
+		
 		Thread.sleep(3000);
 		//get all the links on a page
 		allLinks = Elements.getWebElements(By.xpath("//a[not(contains(@href,'secure'))]"));
@@ -94,7 +94,7 @@ public class TC_05_VerifyNPWLinks extends BaseTest
 			//List<String> list = new ArrayList<String>();
 
 			try {
-
+				
 				driver.navigate().to(sLink);
 
 				List<WebElement> allSubLinks;
@@ -140,22 +140,13 @@ public class TC_05_VerifyNPWLinks extends BaseTest
 			}
 
 
-
-
-
 			catch(Exception e) {
-				System.out.println("LINK UNDER Question is "+sLink);
+				System.out.println("LINK UNDER Question is "+sLink+" .....error message is ... "+e.getMessage());
 			}
 			//Thread.sleep(1000);
 
 		}
 
-
-
 	}
-
-
-
-
 
 }
