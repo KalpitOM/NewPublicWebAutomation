@@ -45,7 +45,7 @@ public class TC_05_VerifyNPWLinks extends BaseTest
 				String sLink = link.getAttribute("href");
 				List<String> list = new ArrayList<String>();
 				
-				if(!objListMap.containsKey(sLink) && sLink!=null && sLink.contains("nonprod") && !sLink.contains("object") && !objMapErrorUrls.containsKey(sLink))
+				if(!objListMap.containsKey(sLink) && sLink!=null && sLink.contains("digitalplatform.oldmutual.co.za") && !sLink.contains("object") && !objMapErrorUrls.containsKey(sLink))
 				{
 					URL url = new URL(sLink);
 					int iResponse=CommonFunc.chkBrokenLink(url);
@@ -92,7 +92,7 @@ public class TC_05_VerifyNPWLinks extends BaseTest
 
 					//check if the link is already there. 
 					//also check if the link is external, then ignore it
-					if(!objListMap.containsKey(sLink) && !objSubListMap.containsKey(sLink) && sLink!=null && sLink.contains("nonprod") && !sLink.contains("object") && !objMapErrorUrls.containsKey(sLink) )
+					if(!objListMap.containsKey(sLink) && !objSubListMap.containsKey(sLink) && sLink!=null && sLink.contains("digitalplatform.oldmutual.co.za") && !sLink.contains("object") && !objMapErrorUrls.containsKey(sLink) )
 					{
 						URL url = new URL(sLink);
 						int iResponse=CommonFunc.chkBrokenLink(url);
@@ -106,6 +106,9 @@ public class TC_05_VerifyNPWLinks extends BaseTest
 							subList.add(sLink);
 							objSubListMap.put(sLink, subList);
 							System.out.println("sublinks.... "+ sLink);
+							if(sLink.contains("qa")) {
+								System.out.println("sdsa");
+							}
 						}
 					}
 				}
