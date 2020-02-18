@@ -106,9 +106,6 @@ public class TC_05_VerifyNPWLinks extends BaseTest
 							subList.add(sLink);
 							objSubListMap.put(sLink, subList);
 							System.out.println("sublinks.... "+ sLink);
-							if(sLink.contains("qa")) {
-								System.out.println("sdsa");
-							}
 						}
 					}
 				}
