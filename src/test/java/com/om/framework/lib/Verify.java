@@ -288,7 +288,7 @@ public class Verify extends BaseTest
 		try 
 		{
 			driver.findElements(objLocator);
-			logger.info("The elements are prsent in the DOM");
+			logger.info("The elements are present in the DOM");
 			Wait.resetElementWait();
 			return true;
 		} catch (NoSuchElementException e) 

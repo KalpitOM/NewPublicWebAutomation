@@ -58,7 +58,8 @@ public class TC_05_VerifyNPWLinks extends BaseTest
 					{
 						list.add(sLink);
 						objListMap.put(sLink, list);
-						System.out.println("Home page links : "+sLink);
+						//System.out.println("Home page links : "+sLink);
+						System.out.println(sLink);
 					}
 					
 				}
@@ -105,19 +106,21 @@ public class TC_05_VerifyNPWLinks extends BaseTest
 						{
 							subList.add(sLink);
 							objSubListMap.put(sLink, subList);
-							System.out.println("sublinks.... "+ sLink);
+							//System.out.println("sublinks.... "+ sLink);
+							System.out.println(sLink);
 						}
 					}
 				}
-				System.out.println("objSubListMap size is ... "+objSubListMap.size());
+				
 			}
-
+			
 			catch(Exception e) {
 				System.out.println("LINK UNDER Question is "+sLink+" .....error message is ... "+e.getMessage());
 			}
+			
 
 		}
-
+		System.out.println("objSubListMap size is ... "+objSubListMap.size());
 	}
 
 }

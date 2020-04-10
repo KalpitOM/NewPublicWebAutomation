@@ -183,11 +183,12 @@ public class Browser extends BaseTest
 	{
 
 		try{
-			//System.setProperty("webdriver.chrome.driver",sPathOfDriver);
-			WebDriverManager.chromedriver().setup();
+			//System.setProperty("webdriver.chrome.driver","C:\\Users\\xy58630\\Documents\\Workspace3\\test2334\\WebDrivers\\chromedriver.exe");
+			WebDriverManager.chromedriver().version("79.0.3945.36").setup();
 			ChromeOptions options= new ChromeOptions();
-			options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors"); 
-
+			//options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors"); 
+			options.addArguments("headless");  
+			options.addArguments("window-size=1400,800"); 
 			//options.addArguments(arguments);
 
 			wDriver = new ChromeDriver(options);	
