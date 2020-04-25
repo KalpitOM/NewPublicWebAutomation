@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="RA Test Cases">
-	<test name="RA">
+<suite name="NPW SA Test Cases">
+	<test name="NPW SA">
 		<classes>
 			
 			<class name="com.npw.testscripts.ra.TC_06_createGapCover"></class>
+			<class name="com.npw.testscripts.ra.TC_05_VerifyNPWLinks"></class>
 		</classes>
 	</test>
 </suite> 
