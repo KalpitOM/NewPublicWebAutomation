@@ -6,20 +6,19 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-
 import com.npw.locators.RA.Locators;
 import com.om.framework.basetest.BaseTest;
 import com.om.framework.lib.Elements;
 import com.om.framework.lib.Messages;
 import com.om.framework.lib.Wait;
 
-public class CommonFunc 
+public class CommonFunc extends BaseTest
 {
 	private static boolean bStatus;
+	private static WebElement shadowDom;
 
 	public static boolean selectDropDown(String stext)
 	{
@@ -128,5 +127,27 @@ public class CommonFunc
 		}
 		return bStatus;
 	}
+	
+	//This method returns Shadow dom element( All sliders) for all the applications
+	public static WebElement findShadowDom(By obj) {
+		try {
+		//shadowDom = expandRootElement(driver.findElement(By.xpath(Locators.GapApp.ShadowDom(sText))));
+		shadowDom = expandRootElement(driver.findElement(obj));
+		return shadowDom.findElement(By.cssSelector("span.slider"));
+		
+	}
+	catch (Exception e){
+		System.out.println("Not able to use shadow dom object due to "+ e.getMessage());
+	}
+		return shadowDom;
+	}
+	private static WebElement expandRootElement(WebElement element) {
+	    WebElement ele = (WebElement) ((JavascriptExecutor) driver).executeScript("return arguments[0].shadowRoot",element);
+	    return ele;
+	}
+
+	
+	
+
 
 }

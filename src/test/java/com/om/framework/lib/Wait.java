@@ -17,12 +17,12 @@ import com.om.framework.basetest.BaseTest;
 
 public class Wait extends BaseTest 
 {
-	
+
 	private static WebDriverWait wait;
 	private static boolean bStatus;
 	private static Logger logger=Logger.getLogger("Wait");
 
-	
+
 	/********************************************************************************
 	Function Name 					: waitForGivenTimeOut
 	Description						: Wiats for the tive time out
@@ -30,14 +30,14 @@ public class Wait extends BaseTest
 	Usage							: waitForGivenTimeOut(iTimeOut)
 	Created By						: Anil Krishna Sai Kosaraju
 	Created On						: 
- ******************************************************************************/
+	 ******************************************************************************/
 	public static void waitForGivenTimeOut(long iTimeOut) throws InterruptedException
 	{
 		Thread.sleep(iTimeOut);
 		logger.info("Waited :"+iTimeOut + " milli seconds");
 	}
-	
-	
+
+
 	/*******************************************************************************
 	Function Name 					: waitForElementVisibility
 	Description						: Wait for the given element to be visible with a maximum time out of 'iTimOut" seconds.
@@ -45,7 +45,7 @@ public class Wait extends BaseTest
 	Usage							: bStatus = waitForElementVisibility(objLocator, iTimeout)
 	Created By						: Anil Krishna Sai Kosaraju
 	Created On						: 
- ******************************************************************************/
+	 ******************************************************************************/
 
 	public static boolean waitForElementVisibility(By objLocator,long iTimeout)
 	{
@@ -70,7 +70,7 @@ public class Wait extends BaseTest
 	Usage							: bStatus = waitForTextVisible(sText, iTimeout)
 	Created By						: Anil Krishna Sai Kosaraju
 	Created On						: 
- ******************************************************************************/
+	 ******************************************************************************/
 	public static boolean waitForTextVisible(String sText,long iTimeout)
 	{
 		long iTimeoutinMillis = (iTimeout*1000);
@@ -88,7 +88,7 @@ public class Wait extends BaseTest
 		logger.warn(Messages.errorMsg);
 		return false; 
 	}
-	
+
 	/*******************************************************************************
 	Function Name 					: waitForTextVisible
 	Description						: Wait for the given text to be visible in the given element with a maximum time out of 'iTimOut".
@@ -96,7 +96,7 @@ public class Wait extends BaseTest
 	Usage							: bStatus = waitForTextVisible(objLocator,sText, iTimeout)
 	Created By						: Anil Krishna Sai Kosaraju
 	Created On						: 
- ******************************************************************************/
+	 ******************************************************************************/
 	public static boolean waitForTextVisible(By objLocator,String sText,long iTimeout)
 	{
 		long iTimeoutinMillis = (iTimeout*1000);
@@ -122,7 +122,7 @@ public class Wait extends BaseTest
 	Usage							: bStatus = waitForAlert(iTimeout)
 	Created By						: Anil Krishna Sai Kosaraju
 	Created On						: 
- ******************************************************************************/
+	 ******************************************************************************/
 	public static boolean waitForAlert(long iTimeout) 
 	{
 		long iTimeoutinMillis = (iTimeout*1000);
@@ -148,21 +148,21 @@ public class Wait extends BaseTest
 	Usage							: bStatus = waitForJQueryProcessing(iTimeout)
 	Created By						: Anil Krishna Sai Kosaraju
 	Created On						: 
- ******************************************************************************/
+	 ******************************************************************************/
 	public static boolean waitForJQueryProcessing(long iTimeout)
 	{
 		boolean jQcondition = false;
 		try{	
 			wait = new WebDriverWait(driver,iTimeout);
 			wait.until(new ExpectedCondition<Boolean>() 
-					{
+			{
 				@Override
 				public Boolean apply(WebDriver wDriver) 
 				{
 					return (Boolean) ((JavascriptExecutor) wDriver).executeScript("return jQuery.active == 0");
 				}
 
-					});
+			});
 			jQcondition = (Boolean) ((JavascriptExecutor) driver).executeScript("return window.jQuery != undefined && jQuery.active === 0");
 			if(!jQcondition)
 			{
@@ -179,7 +179,7 @@ public class Wait extends BaseTest
 			return false;
 		}
 	}
-	
+
 	/*******************************************************************************
 	Function Name 					: waitForJQueryProcessing
 	Description						: Wait for jquery processing bar to process on screen with time out of 'iTimOut".
@@ -187,7 +187,7 @@ public class Wait extends BaseTest
 	Usage							: bStatus = waitForJQueryProcessing(iTimeout)
 	Created By						: Anil Krishna Sai Kosaraju
 	Created On						: 
- ******************************************************************************/
+	 ******************************************************************************/
 	public static boolean waitForEnable(By objLocator,long iTimeout)
 	{
 		long iTimeoutinMillis = (iTimeout*1000);
@@ -213,7 +213,7 @@ public class Wait extends BaseTest
 	Usage							: bStatus = waitForWindow(sWindowName, iTimeout)
 	Created By						: Anil Krishna Sai Kosaraju
 	Created On						: 
-   ***************************************************************************/
+	 ***************************************************************************/
 	public static boolean waitForWindow(String sWindowName, long iTimeout)
 	{
 		String sMainHandler = driver.getWindowHandle();
@@ -241,7 +241,7 @@ public class Wait extends BaseTest
 		return false;
 	}
 
-	
+
 	public static boolean setQuickElementWait() {
 		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 		return true;
@@ -251,7 +251,7 @@ public class Wait extends BaseTest
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		return true;
 	}
-	
+
 	/*************************************************************************
 	Function Name 					: waitTillPageLoaded
 	Description						: Wait untils the page gets loaded with time out of 'iTimOut".
@@ -259,31 +259,31 @@ public class Wait extends BaseTest
 	Usage							: bStatus = waitTillPageLoaded(iTimeout)
 	Created By						: Anil Krishna Sai Kosaraju
 	Created On						: 
-   ***************************************************************************/
+	 ***************************************************************************/
 	public static boolean waitTillPageLoaded(Integer iTimeOut)
 	{
 
-        ExpectedCondition<Boolean> expectation = new  ExpectedCondition<Boolean>() 
-        {
-               public Boolean apply(WebDriver driver) 
-               {
-                     return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
-               }
-        };
-        try 
-        {
-               WebDriverWait wait = new WebDriverWait(driver, iTimeOut);
-               wait.until(expectation);
-        } 
-        catch (Throwable error) 
-        {
-               Messages.errorMsg = error.toString();
-               return false;
-        }
-        return true;
+		ExpectedCondition<Boolean> expectation = new  ExpectedCondition<Boolean>() 
+		{
+			public Boolean apply(WebDriver driver) 
+			{
+				return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
+			}
+		};
+		try 
+		{
+			WebDriverWait wait = new WebDriverWait(driver, iTimeOut);
+			wait.until(expectation);
+		} 
+		catch (Throwable error) 
+		{
+			Messages.errorMsg = error.toString();
+			return false;
+		}
+		return true;
 	}
 
-	
+
 	/*************************************************************************
 	Function Name 					: waitForNoWebElement
 	Description						: Waits for the given element not to present in the given time out of 'iTimOut".
@@ -291,7 +291,7 @@ public class Wait extends BaseTest
 	Usage							: bStatus = waitForNoWebElement(objLocator,iTimeout)
 	Created By						: Anil Krishna Sai Kosaraju
 	Created On						: 
-   ***************************************************************************/
+	 ***************************************************************************/
 	public static boolean waitForNoWebElement(By objLocator, int iTimeOut) throws InterruptedException {
 
 		Integer TIMEOUT = iTimeOut;
@@ -314,12 +314,40 @@ public class Wait extends BaseTest
 				// if element is not present means, moto is achieved. return true
 				else
 					resetElementWait();
-					return true;
+				return true;
 			} 
 			catch (Exception e) {
 				resetElementWait();
 				return true;
 			}
+		}
+	}
+
+
+
+
+	/*******************************************************************************
+	Function Name 					: waitForElementToBeClickable
+	Description						: Wait for the given element to be clickable
+	Parameters						: objLocator, iTimeout(seconds)
+	Usage							: bStatus = waitForElementVisibility(objLocator, iTimeout)
+	Created By						: Kalpit Jadhav
+	Created On						: 
+	 ******************************************************************************/
+
+	public static boolean waitForElementToBeClickable(By objLocator,long iTimeout)
+	{
+		try{
+			WebDriverWait wait2 = new WebDriverWait(driver, 10);
+			wait2.until(ExpectedConditions.elementToBeClickable(objLocator));
+			logger.info("element "+objLocator+" is clickable after waiting.");	
+			return true;
+		}
+		catch(Exception e)
+		{	
+			Messages.errorMsg = e.getMessage();
+			logger.warn("element "+objLocator+" is not clickable after waiting "+iTimeout+" secs.");
+			return false;
 		}
 	}
 
