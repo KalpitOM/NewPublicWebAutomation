@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 import com.npw.lib.RA.CommonFunc;
 import com.om.framework.basetest.BaseTest;
 import com.om.framework.lib.Elements;
+import com.om.framework.lib.Wait;
 
 public class TC_05_VerifyNPWLinks extends BaseTest
 {
@@ -31,9 +32,10 @@ public class TC_05_VerifyNPWLinks extends BaseTest
 	public static void verifyLinks() throws InterruptedException, IOException, HeadlessException, AWTException
 	{
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.NANOSECONDS);
-		
-		Thread.sleep(3000);
-		
+	
+		//Wait for links to be visible...figure out smarter way of dynamic wait later
+		Thread.sleep(15000);
+				
 		//get all the links on a page
 		allLinks = Elements.getWebElements(By.xpath("//a[not(contains(@href,'secure'))]"));
 		System.out.println("size of links before removing duplicates: "+allLinks.size());
