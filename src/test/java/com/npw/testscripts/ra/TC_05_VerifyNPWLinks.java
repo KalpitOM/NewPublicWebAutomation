@@ -33,6 +33,7 @@ public class TC_05_VerifyNPWLinks extends BaseTest
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.NANOSECONDS);
 		
 		Thread.sleep(3000);
+		
 		//get all the links on a page
 		allLinks = Elements.getWebElements(By.xpath("//a[not(contains(@href,'secure'))]"));
 		System.out.println("size of links before removing duplicates: "+allLinks.size());
@@ -45,6 +46,7 @@ public class TC_05_VerifyNPWLinks extends BaseTest
 				String sLink = link.getAttribute("href");
 				List<String> list = new ArrayList<String>();
 				
+				// filter out not required links
 				if(!objListMap.containsKey(sLink) && sLink!=null && sLink.contains("digitalplatform.oldmutual.co.za") && !sLink.contains("object") && !objMapErrorUrls.containsKey(sLink))
 				{
 					URL url = new URL(sLink);
@@ -77,11 +79,11 @@ public class TC_05_VerifyNPWLinks extends BaseTest
 			String sLink = keyList.get(i);
 
 			try {
-				
+				//go to sub menu
 				driver.navigate().to(sLink);
 				List<WebElement> allSubLinks;
 
-				//get all links
+				//get all links on the sub menu
 				allSubLinks = driver.findElements(By.xpath("//a[not(contains(@href,'secure'))]"));
 				if(allSubLinks.isEmpty()) continue;
 
