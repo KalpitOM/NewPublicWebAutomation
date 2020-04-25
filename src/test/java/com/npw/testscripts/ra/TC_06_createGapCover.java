@@ -5,6 +5,7 @@ import java.awt.HeadlessException;
 import java.io.IOException;
 import org.testng.annotations.Test;
 import com.npw.lib.RA.Gap;
+import com.npw.lib.RA.NavigateTo;
 import com.om.framework.basetest.BaseTest;
 import com.om.framework.reporting.Reporting;
 
@@ -19,6 +20,11 @@ public class TC_06_createGapCover extends BaseTest {
 		
 		Reporting.Functionality = "Gap";
 		Reporting.Testcasename = TestCaseName;
+		
+
+		//Navigation to Gap Application page
+		bStatus=NavigateTo.hoverAndClickHeaderMenu("Personal", "Our Solutions", "Health");
+		if(!bStatus) return;
 		
 		//Create GAP application
 		bStatus=Gap.createGapCoverApp();

@@ -23,8 +23,16 @@ public class Locators
 		public static String subHeaderHover(String sHoverMenu)
 		{
 			//sXpath="//div[contains(@class, 'desktop desktop-scroll-nav')]//a[@href=\"/personal/solutions\" and contains(text(), 'Our  ')]";
-			sXpath="//div[contains(@class,'container-desktop')]//li[@class='active']//a[text()='"+sHoverMenu+"']";
+			//sXpath="//div[contains(@class,'container-desktop')]//li[@class='active']//a[text()='"+sHoverMenu+"']";
+			sXpath="//div[contains(@class,'container-desktop')]//li[@class='active']//*[text()='"+sHoverMenu+"']";
 			return sXpath;
+		}
+		
+		public static String AppBuyNow(String sText) {
+			
+			sXpath="//span[contains(text(),'"+sText+"')]//ancestor::div[@class='om-product-card-content-container']//*[contains(text(),'BUY NOW')]";
+			return sXpath;
+			
 		}
 
 	}

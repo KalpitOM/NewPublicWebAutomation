@@ -3,6 +3,9 @@ import java.awt.AWTException;
 import java.awt.HeadlessException;
 import java.io.IOException;
 import java.util.Map;
+
+import org.apache.bcel.verifier.structurals.ExceptionHandler;
+
 import org.openqa.selenium.By;
 
 import com.npw.locators.RA.Locators;
@@ -11,23 +14,26 @@ import com.om.framework.lib.Elements;
 import com.om.framework.lib.Messages;
 import com.om.framework.lib.UserActions;
 import com.om.framework.lib.Wait;
-import com.om.framework.reporting.Reporting;
 
+import com.om.framework.reporting.Reporting;
+import org.apache.log4j.Logger;
 
 public class NavigateTo extends BaseTest
 {
 	private static boolean bStatus;
 	private static int iRAwait=25;
+	private static Logger logger=Logger.getLogger("NavigateTo");
+
 
 	public static boolean appMenu(String sAppMenuItem)
 	{
 		bStatus=Wait.waitForElementVisibility(By.xpath(Locators.NavigationMenu.getHeaderMenu(sAppMenuItem)), 15);
 		bStatus=Elements.clickElement(By.xpath(Locators.NavigationMenu.getHeaderMenu(sAppMenuItem)));
-		 
+
 		return bStatus;
 	}
-	
-	
+
+
 	/*******************************************************************************
 	Function Name 					: hoverAndClickHeaderMenu
 	Description						: Go to Application landing page from header menu 
@@ -65,7 +71,7 @@ public class NavigateTo extends BaseTest
 												Smart Budgeting
 												Articles
 												On the Money
-										
+
 	Created By						: Kalpit Jadhav
 	Created On						: 12 Jan 2020
 
@@ -73,68 +79,75 @@ public class NavigateTo extends BaseTest
 	public static boolean hoverAndClickHeaderMenu(String sHeader, String sChildHeader, String sAppname) throws HeadlessException, IOException, AWTException
 	{
 
-		//bStatus=Wait.waitForElementVisibility(By.xpath(Locators.NavigationMenu.getHeaderMenu(sHeader)), iRAwait);
-		bStatus=Elements.clickElement(By.xpath(Locators.NavigationMenu.getHeaderMenu(sHeader)));
-		if(!bStatus) return bStatus;
-		
-		bStatus=Wait.waitForElementVisibility(By.xpath(Locators.NavigationMenu.subHeaderHover(sChildHeader)), iRAwait);
-		if(!bStatus) return bStatus;
-		bStatus=UserActions.mouseOver(By.xpath(Locators.NavigationMenu.subHeaderHover(sChildHeader)));
-		if(!bStatus) return bStatus;
-		
-		//bStatus=Wait.waitForElementVisibility(By.xpath(Locators.NavigationMenu.subHeaderHover(sAppname)), 15);
-		bStatus=Elements.clickElement(By.xpath(Locators.NavigationMenu.subHeaderHover(sAppname)));
-		if (bStatus==false) {
-			Reporting.logResults("Fail", "Go to Application landing page from header menu", "Not able to navigate to "+sAppname+" from "+sChildHeader+" due to "+Messages.errorMsg+" ");
-			return bStatus;
+		try {
+
+			bStatus=Elements.clickElement(By.xpath(Locators.NavigationMenu.getHeaderMenu(sHeader)));
+			if(!bStatus) return bStatus;
+
+			bStatus=Wait.waitForElementVisibility(By.xpath(Locators.NavigationMenu.subHeaderHover(sChildHeader)), iRAwait);
+			if(!bStatus) return bStatus;
+			bStatus=UserActions.mouseOver(By.xpath(Locators.NavigationMenu.subHeaderHover(sChildHeader)));
+			if(!bStatus) return bStatus;
+
+			bStatus=Elements.clickElement(By.xpath(Locators.NavigationMenu.subHeaderHover(sAppname)));
+			if (bStatus==false) {
+				Reporting.logResults("Fail", "Go to Application landing page from header menu", "Not able to navigate to "+sAppname+" from "+sChildHeader+" due to "+Messages.errorMsg+" ");
+				return bStatus;
+			}
 		}
+		catch(Exception e) {
+			Reporting.logResults("Fail", "Go to Application landing page from header menu", "Not able to navigate to "+sAppname+" from "+sChildHeader+" due to "+Messages.errorMsg+" ");
+			logger.warn("Cannot navigate to "+sAppname+" due to ...... "+e.getMessage());
+			return false;
+		}
+
 		return bStatus;
 	}
-	
+
 	public static boolean hoverAndClickHeaderMenu(Map<String,String> objMenuNames) throws HeadlessException, IOException, AWTException
 	{
-		 return hoverAndClickHeaderMenu(objMenuNames.get("HeaderMenu"),objMenuNames.get("SubHeaderMenu"), objMenuNames.get("AppName"));
+		return hoverAndClickHeaderMenu(objMenuNames.get("HeaderMenu"),objMenuNames.get("SubHeaderMenu"), objMenuNames.get("AppName"));
 	}
-	
-	
+
+
 	public static boolean hoverAndClickHeaderMenu(String sHeader, String sChildHeader) throws HeadlessException, IOException, AWTException
 	{
 
-		
+
 		//bStatus=Wait.waitForElementVisibility(By.xpath(Locators.NavigationMenu.getHeaderMenu(sHeader)), iRAwait);
 		bStatus=Elements.clickElement(By.xpath(Locators.NavigationMenu.getHeaderMenu(sHeader)));
 		if(!bStatus) return bStatus;
-	
-		
-		
-		
+
+
+
+
 		bStatus=Wait.waitForElementVisibility(By.xpath(Locators.NavigationMenu.subHeaderHover(sChildHeader)), iRAwait);
 		if(!bStatus) return bStatus;
 		bStatus=UserActions.mouseOver(By.xpath(Locators.NavigationMenu.subHeaderHover(sChildHeader)));
 		if(!bStatus) return bStatus;
-		
-		
+
+
 		if (bStatus==false) {
 			Reporting.logResults("Fail", "Go to Application landing page from header menu", "Not able to navigate to "+sChildHeader+" from "+sHeader+" due to "+Messages.errorMsg+" ");
 			return bStatus;
 		}
-		
+
 		return bStatus;
 	}
-	
+
 	public static boolean hoverAndClickHeaderMenu(String sHeader) throws HeadlessException, IOException, AWTException
 	{
 
-		
+
 		//bStatus=Wait.waitForElementVisibility(By.xpath(Locators.NavigationMenu.getHeaderMenu(sHeader)), iRAwait);
 		bStatus=Elements.clickElement(By.xpath(Locators.NavigationMenu.getHeaderMenu(sHeader)));
 		if(!bStatus) return bStatus;
-		
+
 		if (bStatus==false) {
 			Reporting.logResults("Fail", "Go to Application landing page from header menu", "Not able to navigate to "+sHeader+" due to "+Messages.errorMsg+" ");
 			return bStatus;
 		}
-		
+
 		return bStatus;
 	}
 

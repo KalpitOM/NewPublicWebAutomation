@@ -27,6 +27,10 @@ public class Gap extends BaseTest {
 	// Fill all details on the gap cover app and submit
 	public static boolean createGapCoverApp() throws HeadlessException, IOException, AWTException {
 
+		//Go to gap app 
+		bStatus=Elements.clickElement(By.xpath(Locators.NavigationMenu.AppBuyNow("Old Mutual Gap Cover")));
+		if (!bStatus) return bStatus;
+		
 		// Enter details in the leadtracker
 		bStatus=LeadTracker();
 		if (!bStatus) return bStatus;
@@ -59,6 +63,9 @@ public class Gap extends BaseTest {
 		List<WebElement> radioButonlist;
 
 		try {
+			//wait till page loads
+			bStatus=Wait.waitForElementVisibility(By.xpath(Locators.GapApp.subHeaderTitle("Keep the following handy")), iSync);
+			if (!bStatus) return bStatus;
 			bStatus=Elements.clickElement(By.xpath(Locators.GapApp.btnContinueOrPrevious("Continue")));
 			if (!bStatus) return bStatus;
 			//wait till page navigates to next page
