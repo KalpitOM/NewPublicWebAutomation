@@ -5,6 +5,8 @@ import java.awt.AWTException;
 import java.awt.HeadlessException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -25,18 +27,18 @@ public class Gap extends BaseTest {
 	
 
 	// Fill all details on the gap cover app and submit
-	public static boolean createGapCoverApp() throws HeadlessException, IOException, AWTException {
+	public static boolean createGapCoverApp(Map<String,String> objExcel) throws HeadlessException, IOException, AWTException {
 
 		//Go to gap app 
 		bStatus=Elements.clickElement(By.xpath(Locators.NavigationMenu.AppBuyNow("Old Mutual Gap Cover")));
 		if (!bStatus) return bStatus;
 		
 		// Enter details in the leadtracker
-		bStatus=LeadTracker();
+		bStatus=LeadTracker(objExcel);
 		if (!bStatus) return bStatus;
 
 		// enter personal details
-		bStatus=personalDetails();
+		bStatus=personalDetails(objExcel);
 		if (!bStatus) return bStatus;
 
 		// enter dependants details
@@ -59,7 +61,7 @@ public class Gap extends BaseTest {
 	}
 
 	// Enter details in the leadtracker before reaching personal details page
-	public static boolean LeadTracker() {
+	public static boolean LeadTracker(Map<String,String> objExcel) {
 		List<WebElement> radioButonlist;
 
 		try {
@@ -71,13 +73,13 @@ public class Gap extends BaseTest {
 			//wait till page navigates to next page
 			bStatus=Wait.waitForElementVisibility(By.xpath(Locators.GapApp.subHeaderTitle("First thing’s first, tell us a bit about yourself")), iSync);
 			if (!bStatus) return bStatus;
-			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("First Name(s)")), "FirstName");
+			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("First Name(s)")), objExcel.get("FirstName"));
 			if (!bStatus) return bStatus;
-			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Surname")), "Surname");
+			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Surname")), objExcel.get("LastName"));
 			if (!bStatus) return bStatus;
-			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Cellphone Number")), "0745412323");
+			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Cellphone Number")), objExcel.get("CellPhone"));
 			if (!bStatus) return bStatus;
-			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Email Address")), "abc@cde.com");
+			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Email Address")), objExcel.get("Email"));
 			if (!bStatus) return bStatus;
 			bStatus=Elements.clickElement(By.xpath(Locators.GapApp.btnContinueOrPrevious("Continue")));
 			if (!bStatus) return bStatus;
@@ -112,26 +114,26 @@ public class Gap extends BaseTest {
 
 
 	// enter personal details
-	public static boolean personalDetails() {
+	public static boolean personalDetails(Map<String,String> objExcel) {
 		try {
 			bStatus=Wait.waitTillPageLoaded(iSync);
 			if (!bStatus) return bStatus;
-			//click dropdown
+			//click dropdown for title
 			bStatus=Elements.clickElement(By.xpath(Locators.GapApp.clickDropDown("Mr")));
 			if (!bStatus) return bStatus;
-			bStatus=Elements.clickElement(By.xpath(Locators.GapApp.selectDropDownValue("Mr")));
+			bStatus=Elements.clickElement(By.xpath(Locators.GapApp.selectDropDownValue(objExcel.get("Title"))));
 			if (!bStatus) return bStatus;
 
-			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Initials")),"kj");
+			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Initials")),objExcel.get("Initials"));
 			if (!bStatus) return bStatus;
 
-			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Alternate Contact Number")),"0745414343");
+			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Alternate Contact Number")),objExcel.get("AlternateNumber"));
+			if (!bStatus) return bStatus;
+			
+			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("RSA ID Number")),objExcel.get("RsaId"));
 			if (!bStatus) return bStatus;
 
-			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("RSA ID Number")),"9401014800081");
-			if (!bStatus) return bStatus;
-
-			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Date of Birth")),"01011994");
+			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Date of Birth")),objExcel.get("DateOfBirth"));
 			if (!bStatus) return bStatus;
 
 			//navigate to personal details part 2 "Where do you live?"
@@ -142,16 +144,16 @@ public class Gap extends BaseTest {
 			bStatus=Wait.waitForElementVisibility(By.xpath(Locators.GapApp.subHeaderTitle("Postal Address")), iSync);
 			if (!bStatus) return bStatus;
 
-			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Postal address")),"kjhkjhjkhjkh");
+			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Postal address")),objExcel.get("PostalAddress"));
 			if (!bStatus) return bStatus;
 
-			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Suburb")),"jkjk");
+			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Suburb")),objExcel.get("Suburb"));
 			if (!bStatus) return bStatus;
 
-			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("City")),"Pune");
+			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("City")),objExcel.get("City"));
 			if (!bStatus) return bStatus;
 
-			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Postal Code")),"7441");
+			bStatus=Elements.enterText(By.xpath(Locators.GapApp.inputText("Postal Code")),objExcel.get("PostalCode"));
 			if (!bStatus) return bStatus;
 
 			//navigate to Dependant details
