@@ -1,6 +1,8 @@
 package com.om.framework.lib;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -9,14 +11,40 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
+/*
+
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+*/
+
+
 
 public class Utilities 
 
 {
 	private static Map<String, String> objMap = null;
+
+	//New Variables shashank
+	private static XSSFSheet ExcelWSheet;
+
+	private static XSSFWorkbook ExcelWBook;
+
+	private static XSSFCell Cell;
+
+	private static XSSFRow Row;
+
 
 	/*******************************************************************************
 	Function Name 					: readTestData
@@ -176,7 +204,7 @@ public class Utilities
 		}
 		return sValue;
 	}
-	
+
 	/**
 	 * Returns a time-based value.
 	 *  
@@ -203,13 +231,13 @@ public class Utilities
 	 */
 	public static String getHostFromURL(String sURL) {
 		String hostName = "";
-		
+
 		String[] urlStrings = sURL.split("/");
 		hostName = urlStrings[1];
 		return hostName;
 	}
-	
-	
+
+
 	/**
 	 * Returns a generated random number whose value is between a given min and max int value.
 	 * 
@@ -218,13 +246,13 @@ public class Utilities
 	 * @return int
 	 */
 	public static int generateRandNumber(int minVal, int maxVal) {
-		
+
 		Random rand = new Random();
 		int rNumber = rand.nextInt(maxVal - minVal + 1) + minVal;
 
 		return rNumber;
 	}
-	
+
 	/**
 	 * Generates a time-based string by providing a valid SimpleDateFormat format.
 	 * 
@@ -239,7 +267,7 @@ public class Utilities
 		rString = new SimpleDateFormat(FORMAT).format(new GregorianCalendar().getTime());		
 		return rString;				
 	}
-	
+
 
 	/*******************************************************************************
 		Function Name 					: generateRandString
@@ -249,14 +277,14 @@ public class Utilities
 		Created By						: Anil Krishna Sai Kosaraju
 		Created On						: 
 	 ******************************************************************************/
-		public static String generateRandString() {
-			String rString = "";		
-			String FORMAT = "MM-dd-yyyy-hh-mm-ss";		
-			rString = new SimpleDateFormat(FORMAT).format(new GregorianCalendar().getTime());		
-			return rString;				
-		}
-  
-  	/*************************************************************************************************************************
+	public static String generateRandString() {
+		String rString = "";		
+		String FORMAT = "MM-dd-yyyy-hh-mm-ss";		
+		rString = new SimpleDateFormat(FORMAT).format(new GregorianCalendar().getTime());		
+		return rString;				
+	}
+
+	/*************************************************************************************************************************
 	Function Name 					: getProjectPath
 	Description						: returns the current project path
 	Parameters						: 
@@ -271,7 +299,7 @@ public class Utilities
 		{
 			File currentDirFile = new File(".");
 			sProjectPath = currentDirFile.getAbsolutePath();
-						
+
 			return sProjectPath.substring(0, sProjectPath.length()-1);
 		}
 		catch(Exception e)
@@ -281,4 +309,133 @@ public class Utilities
 
 		return sProjectPath;
 	}
+
+
+	
+	
+	
+	
+
+	//New Methods Shashank
+
+	public static void setExcelFile(String Path,String SheetName) throws Exception {
+
+		try {
+
+			// Open the Excel file
+
+			FileInputStream ExcelFile = new FileInputStream(Path);
+
+			// Access the required test data sheet
+
+			ExcelWBook = new XSSFWorkbook(ExcelFile);
+
+			ExcelWSheet = ExcelWBook.getSheet(SheetName);
+
+
+		} catch (Exception e){
+
+			throw (e);
+
+		}
+
+
+
+	}
+
+
+	public static int getRowNum() {
+
+		int count =  ExcelWSheet.getLastRowNum();
+		return count;
+	}
+
+
+
+
+	public static String getCellData(int RowNum, int ColNum) throws Exception{
+
+		try{
+
+			Cell = ExcelWSheet.getRow(RowNum).getCell(ColNum);
+
+			Cell.setCellType(CellType.STRING);
+
+			String CellData = Cell.getStringCellValue();
+
+			return CellData;
+
+		}catch (Exception e){
+			System.out.println(e);
+
+			return"";
+
+		}
+
+	}
+
+
+
+	public static void closeexcel(String Path) throws IOException
+	{
+
+		try {
+			// Constant variables Test Data path and Test Data file name
+
+			FileOutputStream fileOut = new FileOutputStream(Path);
+
+			ExcelWBook.write(fileOut);
+
+			fileOut.flush();
+
+			fileOut.close();
+		}
+		catch(Exception e) {
+
+		}
+
+	}
+
+
+	//This method is to write in the Excel cell, Row num and Col num are the parameters
+
+	public static void setCellData(String Result,int RowNum, int ColNum) throws Exception {
+
+		try{
+
+			Row  = ExcelWSheet.getRow(RowNum);
+
+			Cell = Row.getCell(ColNum);
+
+			if (Cell == null) {
+
+				Cell = Row.createCell(ColNum);
+
+				Cell.setCellValue(Result);
+
+			} else {
+
+				Cell.setCellValue(Result);
+
+			}
+
+
+
+		}catch(Exception e){
+
+			throw (e);
+
+		}
+
+	}
+
+
+
+
+
+
+
+
+
+
 }

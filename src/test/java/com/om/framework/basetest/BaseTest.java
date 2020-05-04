@@ -155,8 +155,8 @@ public class BaseTest extends TestListenerAdapter
 			}
 
 			//set the default wait and timeout values 
-			//driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-			//driver.manage().timeouts().pageLoadTimeout(200, TimeUnit.SECONDS);						
+			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+			driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);						
 		} 
 		catch (Exception e) 
 		{

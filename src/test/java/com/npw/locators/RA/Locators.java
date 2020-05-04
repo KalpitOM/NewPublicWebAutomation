@@ -193,6 +193,144 @@ public class Locators
 	}
 
 
+	
+	
+	public static class NPW
+    {
+           public static String HeaderMenu(String sAppMenuItem)
+           {
+                  sXpath="//div[contains(@class,'container-desktop')]//a[text()='"+sAppMenuItem +"']";
+                  return sXpath;
+           }
+           
+           public static String FooterMenu(String sAppMenuItem)
+           {
+                  sXpath="//div[contains(@class,'om-footer-container')]//a[text()='"+sAppMenuItem +"']";
+                  return sXpath;
+           }
+           
+           public static String btnGeneric(String btnContinue)
+           {
+                  sXpath="//*[text()='"+btnContinue+"']";
+                  return sXpath;
+           }
+           
+           public static String btnCallMeBack(String btnCallMeBack)
+           {
+                  sXpath="//button[contains(@class,'icon-checkbox om-check-box--unchecked')]//span[text()='"+btnCallMeBack +"']";
+                  return sXpath;
+           }
+           
+           public static String weCallMeBackResponse()
+           {
+                  sXpath="//div[contains(@class,'side-drawer-content-wrapper')]//h5[@class='medium']";
+                  return sXpath;
+           }
+           
+           public static String btnchatbot()
+           {
+                  sXpath="//*[@id=\"nba-web-chatbot-main-container\"]/div/button";
+                  return sXpath;
+           }
+           public static String btnclosechatbot()
+           {
+                  sXpath="//*[@id=\"nba-web-chatbot-main-container\"]/div/button";
+                  return sXpath;
+           }
+           public static String searchicon()
+           {
+           
+           sXpath="//div[contains(@class,'om-main-navigation-col-3__row-2')]//div[@class='om-main-navigation-search-wrapper']";
+           return sXpath;
+           
+           
+           }
+           
+           public static String radioBtnAdvisorPage(String Stext)
+           {
+                  //sXpath="//span[contains(text(),'Increase')]//..//input[@type='radio']";
+                  sXpath="//om-radio-button[contains(@radio-button-text,'"+Stext+"')]";
+                  return sXpath;
+           }
+           
+           public static String inputTextAdvisor(String Stext)
+           {
+                  sXpath= "//*[@placeholder='"+Stext+"']";
+                  return sXpath;
+           }
+           
+           public static String checkBox(String Stext)
+           {
+                  
+                  sXpath="//om-check-box[contains(@text,'"+Stext+"')]//span[@class='om-checkbox-icon']";
+                  return sXpath;
+           }
+           
+           public static String clickdropdown()
+           {
+                  
+                  sXpath="//*[contains(@class,'om-dropdown-field__arrow')]";
+                  return sXpath;
+           }
+           
+           
+           
+           
+           public static String navigationforward()
+           {
+                  sXpath="//div[contains(@class,'pagination-wrapper-desktop')]//div[contains(@class,'button-wrapper active')][2]";
+                  //sXpath ="//span[contains(@class,'om-icon-container')]//..//..//div[contains(@class,'button-wrapper active')]";
+                  //sXpath="//*[@id='app']/om-faa-results-page/om-page/div/div/om-section/div/div/div[2]/div/div/div/om-pagination/div/div[1]/div[3]/om-icon";
+                  return sXpath;
+           }
+           
+           public static String navigationback()
+           {
+                  sXpath="//div[contains(@class,'pagination-wrapper-desktop')]//div[contains(@class,'button-wrapper active')]";
+                  //sXpath ="//span[contains(@class,'om-icon-container')]//..//..//div[contains(@class,'button-wrapper active')]";
+                  //sXpath="//*[@id='app']/om-faa-results-page/om-page/div/div/om-section/div/div/div[2]/div/div/div/om-pagination/div/div[1]/div[3]/om-icon";
+                  return sXpath;
+           }
+           
+           public static String navigatetofirst()
+           {
+                  sXpath="//om-pagination-item//div[contains(text(),'1')]";
+                  //sXpath ="//span[contains(@class,'om-icon-container')]//..//..//div[contains(@class,'button-wrapper active')]";
+                  //sXpath="//*[@id='app']/om-faa-results-page/om-page/div/div/om-section/div/div/div[2]/div/div/div/om-pagination/div/div[1]/div[3]/om-icon";
+                  return sXpath;
+           }
+           
+           
+           
+           public static String advisorimage(String advisor)
+           {
+                  sXpath="//div[(@class='card-image' and contains(@style,'"+advisor+"'))]";
+                  return sXpath;
+           }
+           
+           public static String advisorname(String advisor,String name)
+           {
+                  sXpath="//div[(@class='card-image' and contains(@style,'"+advisor+"'))]//..//..//span[contains(text(),'"+name+"')]";
+                  return sXpath;
+           }
+           
+           public static String advisorimage()
+           {
+                  sXpath="//div[(@class='card-image')]";
+                  return sXpath;
+           }
+           
+           public static String advisorname()
+           {
+                  sXpath="//div[(@class='card-image')]//..//..//span[(@slot='product-title')]";
+                  return sXpath;
+           }
+           
+           
+           
+           
+    }
+	
 
 
 

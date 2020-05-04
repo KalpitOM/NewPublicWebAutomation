@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import com.npw.lib.RA.CommonFunc;
 import com.om.framework.basetest.BaseTest;
@@ -392,5 +393,61 @@ public class Elements extends BaseTest
 		}
 		return sValue;
 	}
+	
+	
+	
+	
+	
+	public static boolean checkWebElement(By objLocator)
+    {
+           bStatus=Wait.waitForElementVisibility(objLocator, iWait);
+           if(bStatus)
+           {
+                  logger.info("The Element "+objLocator+" is visible");
+                  return bStatus;
+           }
+           logger.warn("The Element "+objLocator+" is not visible and cannot be used");
+           return bStatus;
+    }
+    
+    public static boolean enterTextDE(By objLocator,String sValue) throws InterruptedException
+    {
+           bStatus = Wait.waitForElementVisibility(objLocator, iWait);
+           if(bStatus)
+           {
+                  CommonFunc.scrollToViewElement(objLocator);
+                  //driver.findElement(objLocator).click();
+                  //driver.findElement(objLocator).clear();
+                  driver.findElement(objLocator).sendKeys(sValue);
+                  Thread.sleep(1000);
+                  driver.findElement(objLocator).sendKeys(Keys.DOWN);
+                  driver.findElement(objLocator).sendKeys(Keys.ENTER);
+                  
+                  logger.info("The text "+sValue+" has been inputted successfully.");
+                  return true;
+           }
+           logger.warn("The text "+sValue+" could not be entered successfully");
+           return false; 
+    }
+    
+    
+    public static boolean movetoclickElement(By objLocator) throws InterruptedException
+    {
+           //bStatus = Verify.verifyElementVisible(objLocator);
+           bStatus=Wait.waitForElementVisibility(objLocator, iWait);
+           if(bStatus)
+           {
+                  
+                  Actions action = new Actions(driver);
+                  action.moveToElement(driver.findElement(objLocator)).click().perform();
+                  
+                  logger.info("The element "+objLocator+" has been clicked successfully");
+                  return true;
+           }
+           logger.warn("The element "+objLocator+" cannot be clicked due to: "+Messages.errorMsg);
+           return false;
+    }
+
+	
 
 }

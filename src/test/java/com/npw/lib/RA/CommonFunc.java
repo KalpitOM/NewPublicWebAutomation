@@ -145,6 +145,99 @@ public class CommonFunc extends BaseTest
 	    WebElement ele = (WebElement) ((JavascriptExecutor) driver).executeScript("return arguments[0].shadowRoot",element);
 	    return ele;
 	}
+	
+	
+	
+	
+	
+	
+	
+	//Shashank
+	
+	public static boolean checkheadermenu()
+    {
+           //Check Header Menu
+           bStatus=Elements.checkWebElement(By.xpath(Locators.NPW.HeaderMenu("Personal")));
+           if(!bStatus) return bStatus;
+           
+           bStatus=Elements.checkWebElement(By.xpath(Locators.NPW.HeaderMenu("Wealth")));
+           if(!bStatus) return bStatus;
+           
+           bStatus=Elements.checkWebElement(By.xpath(Locators.NPW.HeaderMenu("Business")));
+           if(!bStatus) return bStatus;
+           
+           bStatus=Elements.checkWebElement(By.xpath(Locators.NPW.HeaderMenu("Corporate")));
+           if(!bStatus) return bStatus;
+           
+           bStatus=Elements.checkWebElement(By.xpath(Locators.NPW.HeaderMenu("Institutions")));
+           if(!bStatus) return bStatus;
+           
+           bStatus=Elements.checkWebElement(By.xpath(Locators.NPW.HeaderMenu("Claims")));
+           if(!bStatus) return bStatus;
+           
+           bStatus=Elements.checkWebElement(By.xpath(Locators.NPW.HeaderMenu("Careers")));
+           if(!bStatus) return bStatus;
+           
+           bStatus=Elements.checkWebElement(By.xpath(Locators.NPW.HeaderMenu("About")));
+           if(!bStatus) return bStatus;
+           
+           
+           return bStatus;
+
+           
+    }
+    
+    public static boolean checkfootermenu()
+    {
+           bStatus=Elements.checkWebElement(By.xpath(Locators.NPW.FooterMenu("Disclaimer")));
+           if(!bStatus) return bStatus;
+           
+           bStatus=Elements.checkWebElement(By.xpath(Locators.NPW.FooterMenu("Privacy Notice")));
+           if(!bStatus) return bStatus;
+           
+           
+           
+           
+           return bStatus;
+    }
+    
+    public static boolean callmeback() throws InterruptedException
+    {
+           bStatus=Elements.clickElement(By.xpath(Locators.NPW.btnGeneric("CALL ME BACK")));
+           if(!bStatus) return bStatus;
+           bStatus=Elements.enterText(By.xpath(Locators.RaApp.inputText("Your Name")),"Shashank");
+           if(!bStatus) return bStatus;
+           bStatus=Elements.enterText(By.xpath(Locators.RaApp.inputText("Your Surname")),"Bhandwalkar");
+           if(!bStatus) return bStatus;
+           bStatus=Elements.enterText(By.xpath(Locators.RaApp.inputText("Cellphone Number")),"0681652323");
+           if(!bStatus) return bStatus;
+           
+           bStatus=Elements.clickElement(By.xpath(Locators.NPW.btnGeneric("Call Me Back")));
+           if(!bStatus) return bStatus;
+           //bStatus=Elements.clickElement(By.xpath(Locators.NPW.btnCallMeBack("Call Me Back")));
+           //if(!bStatus) return bStatus;
+           
+           String response =Elements.getText(By.xpath(Locators.NPW.weCallMeBackResponse()));
+           bStatus=response.contains("Thank you");
+           if(!bStatus) return bStatus;
+           return bStatus;
+                        
+    }
+    
+    public static boolean checkchatbot()
+    {
+           bStatus=Elements.clickElement(By.xpath(Locators.NPW.btnchatbot()));
+           if(!bStatus) return bStatus;
+           
+           bStatus=Elements.clickElement(By.xpath(Locators.NPW.btnclosechatbot()));
+           if(!bStatus) return bStatus;
+           
+           bStatus=Elements.clickElement(By.xpath(Locators.NPW.searchicon()));
+           if(!bStatus) return bStatus;
+           
+           return bStatus;
+    }
+
 
 	
 	

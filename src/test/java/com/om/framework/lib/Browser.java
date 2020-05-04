@@ -519,4 +519,11 @@ public class Browser extends BaseTest
 	{
 		return driver.getCurrentUrl();
 	}
+	
+	public static void navigateTo(WebDriver wDriver,String sUrl)
+    {
+           wDriver.navigate().to(sUrl);;
+           logger.info("Successfully navigated to  web page");
+    }
+
 }
